@@ -22,4 +22,9 @@ The usage of this announcement tool intends to minimize copy and paste
 errors typical if performed manually. Next the mail announcement gets
 a more clear structure compared to manual editing.
 
+Tested using standard Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015,
+22:43:06) on Windows environment.
+
 MIT licensed, (c) Oliver Merkel
+
+Logos and trademarks belong to their respective owners.
