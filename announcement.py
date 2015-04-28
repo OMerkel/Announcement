@@ -134,15 +134,36 @@ class Announcement:
     return result
     
 if '__main__' == __name__:
-  user = sorted(list(users.keys()))[0]
-  mailType = sorted(list(mail.keys()))[0]
+  import argparse
+  userList = sorted(list(users.keys()))
+  mailTypeList = sorted(list(mail.keys()))
+  parser = argparse.ArgumentParser(description='Announcement Mailer.')
+  parser.add_argument('-u', '--user', nargs=1, type=str,
+    choices=userList, default=[userList[0]],
+    help='User to send the announcement. ' +
+    'Default is to use ' + userList[0])
+  parser.add_argument('-t', '--type', nargs=1, type=str,
+    choices=mailTypeList, default=[mailTypeList[0]],
+    help='Mail type of announcement. ' +
+    ('Default is to use "%s"' % mailTypeList[0]))
+  parser.add_argument('-s', '--send', nargs=1, type=str,
+    choices=['console', 'test', 'serious'],
+    default=['console'], help="""How and where to send output.
+    "console" shows the mail on console only.
+    "test" fakes mail by sending to own mail address only.
+    "serious" sends out real mail.
+    Default is to use console""" )
+  args = parser.parse_args()
+  user = args.user[0]
+  sendOutput = args.send[0]
+  mailType = args.type[0]
   announcement = Announcement(user, mailType)
-  print(announcement.message.as_string())
-  """
-  announcement.attach()
-  if True:
-    announcement.sendTestMail()
+  if 'console' == sendOutput:
+    print(announcement.message.as_string())
   else:
-    password = getpass.getpass('Hello %s. Please enter your password: ' % self.user).strip()
-    announcement.sendMail(password)
-  """
+    announcement.attach()
+    if 'test' == sendOutput:
+      announcement.sendTestMail()
+    else:
+      password = getpass.getpass('Hello %s. Please enter your password: ' % self.user).strip()
+      announcement.sendMail(password)
