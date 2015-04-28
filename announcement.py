@@ -127,7 +127,7 @@ class Announcement:
         fh.close()
         part.add_header('Content-Transfer-Encoding', 'base64')
         part.add_header('Content-Disposition', 'attachment; filename="%s"' % fileName)
-        announcement.message.attach(part)    
+        self.message.attach(part)    
       else:
         print('Error: Missing %s ( %s )' % (fileName, filePath))
         result = False
