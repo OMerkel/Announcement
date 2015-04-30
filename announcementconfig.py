@@ -30,7 +30,8 @@ mail = {
       "<a href='file:///${path}'>${path}</a></p>",
       "${signature}",
       "</body></html>"
-    ]
+    ],
+    "attachments" : "releasenotesattachments"
   },
   "Final Delivery Build" : {
     "To" : [ "Releases <releases@your-company.com>" ],
@@ -76,10 +77,10 @@ current = { "productversion" : "MyProduct1.1-abc-details",
   "calendarmonth" : "15.04",
   "path" : "\\\\someserver\\share\\path1\\path2\\directory",
   "buildserver" : "http://somebuildserver",
-  "attachments" : [
-    "ReleaseNotes\\Release_Notes.pdf",
-    "Testing\\TestReport.pdf",
-    "CHANGELOG.txt"
+  "releasenotesattachments" : [
+    "\\\\someserver\\share\\path1\\path2\\directory\\ReleaseNotes\\Release_Notes.pdf",
+    "\\\\someserver\\share\\path1\\path2\\directory\\Testing\\TestReport.pdf",
+    "\\\\someserver\\share\\path1\\path2\\directory\\CHANGELOG.txt"
   ]
 }
 

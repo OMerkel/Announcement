@@ -65,7 +65,7 @@ class Announcement:
     signature = '\n'.join(self.userData[self.SIGNATURE])
     body = '\n'.join(mail[self.mailType][self.BODY])
     body = Template(body).safe_substitute(current)
-    self.body = Template(body).substitute(signature=signature)
+    self.body = Template(body).safe_substitute(signature=signature)
 
   def getSubject(self):
     return Template(mail[self.mailType][self.SUBJECT]).substitute(current)
@@ -105,32 +105,37 @@ class Announcement:
     server.sendmail( self.message[self.FROM], to, self.message.as_string() )
     server.quit()
 
-  def attachmentsAvailable( self ):
-    result = True
-    for path in current[Announcement.ATTACHMENTS]:
-      filePath = os.path.join( current[Announcement.PATH], path )
-      fileName = path.split('\\')[-1]
-      if not os.path.exists(filePath) or not os.path.isfile(filePath):
-        print('Error: Missing %s ( %s )' % (fileName, filePath))
-        result = False
+  def getAttachmentKey( self ):
+    return mail[self.mailType][self.ATTACHMENTS] if self.ATTACHMENTS in mail[self.mailType].keys() else None
+
+  def attachmentsMissing( self ):
+    result = False
+    key = self.getAttachmentKey()
+    if not key is None:
+      for filePath in current[key]:
+        fileName = filePath.split('\\')[-1]
+        if not os.path.exists(filePath) or not os.path.isfile(filePath):
+          print('Error: Missing %s ( %s )' % (fileName, filePath))
+          result = True
     return result
-  
+
   def attach(self):
     result = True
-    for path in current[Announcement.ATTACHMENTS]:
-      filePath = os.path.join( current[Announcement.PATH], path )
-      fileName = path.split('\\')[-1]
-      if os.path.exists(filePath) and os.path.isfile(filePath):
-        fh = open(filePath,'rb')
-        part = MIMEBase('application', "octet-stream")
-        part.set_payload(encodebytes(fh.read()).decode())
-        fh.close()
-        part.add_header('Content-Transfer-Encoding', 'base64')
-        part.add_header('Content-Disposition', 'attachment; filename="%s"' % fileName)
-        self.message.attach(part)    
-      else:
-        print('Error: Missing %s ( %s )' % (fileName, filePath))
-        result = False
+    key = self.getAttachmentKey()
+    if not key is None:
+      for filePath in current[key]:
+        fileName = filePath.split('\\')[-1]
+        if os.path.exists(filePath) and os.path.isfile(filePath):
+          fh = open(filePath,'rb')
+          part = MIMEBase('application', "octet-stream")
+          part.set_payload(encodebytes(fh.read()).decode())
+          fh.close()
+          part.add_header('Content-Transfer-Encoding', 'base64')
+          part.add_header('Content-Disposition', 'attachment; filename="%s"' % fileName)
+          self.message.attach(part)    
+        else:
+          print('Error: Missing %s ( %s )' % (fileName, filePath))
+          result = False
     return result
     
 if '__main__' == __name__:
@@ -161,9 +166,11 @@ if '__main__' == __name__:
   if 'console' == sendOutput:
     print(announcement.message.as_string())
   else:
-    announcement.attach()
-    if 'test' == sendOutput:
-      announcement.sendTestMail()
+    if announcement.attach():
+      if 'test' == sendOutput:
+        announcement.sendTestMail()
+      else:
+        password = getpass.getpass('Hello %s. Please enter your password: ' % self.user).strip()
+        announcement.sendMail(password)
     else:
-      password = getpass.getpass('Hello %s. Please enter your password: ' % self.user).strip()
-      announcement.sendMail(password)
+      print("Error: could not include attachments")

@@ -74,16 +74,23 @@ class ControlAnnouncement:
 
     self.checkAttachments()
 
-  def checkAttachments(self):    
+  def checkAttachments(self):
+    key = self.announcement.getAttachmentKey()
+    print("Info: Attachment key is " + str(key))
     self.checkButtonAttachmentAvailable.config(state=NORMAL)
-    if self.announcement.attachmentsAvailable():
-      self.checkButtonAttachmentAvailable.select()
+    if key is None:
+      self.checkButtonAttachmentAvailable.deselect()
       self.buttonSendTestMail.config(state=NORMAL)
       self.buttonSendMail.config(state=NORMAL)
     else:
-      self.checkButtonAttachmentAvailable.deselect()
-      # self.buttonSendTestMail.config(state=DISABLED)
-      self.buttonSendMail.config(state=DISABLED)
+      if not self.announcement.attachmentsMissing():
+        self.checkButtonAttachmentAvailable.select()
+        self.buttonSendTestMail.config(state=NORMAL)
+        self.buttonSendMail.config(state=NORMAL)
+      else:
+        self.checkButtonAttachmentAvailable.deselect()
+        # self.buttonSendTestMail.config(state=DISABLED)
+        self.buttonSendMail.config(state=DISABLED)
     self.checkButtonAttachmentAvailable.config(state=DISABLED)
 
   def updateUser(self, *args):
