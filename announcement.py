@@ -68,7 +68,7 @@ class Announcement:
     self.body = Template(body).safe_substitute(signature=signature)
 
   def getSubject(self):
-    return Template(mail[self.mailType][self.SUBJECT]).substitute(current)
+    return Template(mail[self.mailType][self.SUBJECT]).safe_substitute(current)
 
   def renderHeader(self):
     result = {}

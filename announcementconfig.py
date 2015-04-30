@@ -50,6 +50,27 @@ mail = {
       "${signature}",
       "</body></html>"
     ]
+  },
+  "Weekly Brown Bag Meeting" : {
+    "To" : [ "ProjectDevelopers <ProjectDevelopers@your-company.com>" ],
+    "CC" : [ "Integration <int@your-company.com>", "Project Leader <projectlead@your-company.com>" ],
+    "Subject" : "Reminder: ${productversion} Wednesday 11am - Weekly Brown Bag Meeting",
+    "Body" : [
+      "<html xmlns='http://www.w3.org/TR/REC-html40'><head>",
+      "<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=iso-8859-1'><style><!--",
+      "@font-face {font-family:Arial;panose-1:2 15 5 2 2 2 4 3 2 4;}",
+      "p {margin:0cm;margin-bottom:12.0pt;font-size:10.0pt;font-family:'Arial','sans-serif';}",
+      "p.signature {margin-left:20.0pt;margin-bottom:8.0pt;font-size:8.0pt;color:black;}",
+      "--></style></head>",
+      "<body><p>Dear all,</p>",
+      "<p>This is a kind reminder and invitation to our Weekly Wednesday Brown Bag Meeting. Feel free to join.</p>",
+      "<p>The meeting is usually helpful to socialize, sync on project progress and get help on impediments as well.</p>",
+      "<p>Attached you will find some suggestions to pick up a brown bag nearby in case you missed to bring your lunch.</p>",
+      "<p>See ya in a bit... ;-)</p>",
+      "${signature}",
+      "</body></html>"
+    ],
+    "attachments" : "lunchsuggestions"
   }
 }
 
@@ -81,6 +102,11 @@ current = { "productversion" : "MyProduct1.1-abc-details",
     "\\\\someserver\\share\\path1\\path2\\directory\\ReleaseNotes\\Release_Notes.pdf",
     "\\\\someserver\\share\\path1\\path2\\directory\\Testing\\TestReport.pdf",
     "\\\\someserver\\share\\path1\\path2\\directory\\CHANGELOG.txt"
+  ],
+  "lunchsuggestions" : [
+    "\\\\someserver\\share\\path3\\italian\\pizza_and_pasta.pdf",
+    "\\\\someserver\\share\\path4\\indian\\vegetarian_spicy.pdf",
+    "\\\\someserver\\share\\path5\\german\\schnitzel_and_bratwurst.pdf"
   ]
 }
 
