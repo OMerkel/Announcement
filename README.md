@@ -1,6 +1,6 @@
 # Announcement
 
-__Keywords:__ _SMTP, mail announcements, events, Python, tkinter_
+__Keywords:__ _SMTP, mail announcements, events, Python, tkinter, file attatchments, HTML, command line, argparse, JSON_
 
 Objective of this project is to develop a tool to send mail announcements
 using mail templates. Text data values, configured signatures and file
