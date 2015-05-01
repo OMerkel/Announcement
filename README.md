@@ -25,7 +25,8 @@ announcement gets a more clear structure compared to manual editing.
 Recognition value of such email messages is increased since manual
 variation is minimized to a reasonable value.
 
-* <a href src="https://www.python.org">Getting Python</a>
+* <a href src="https://www.python.org">Python.org</a>
+* <a href src="https://docs.python.org/3/library/smtplib.html">Python 3 - smtplib (SMTP protocol client)</a>
 * <a href src="https://tools.ietf.org/html/rfc821">RFC821 - SMTP (Simple Mail Transfer Protocol), August 1982</a>
 * <a href src="https://tools.ietf.org/html/rfc2821">RFC2821 - SMTP (Simple Mail Transfer Protocol), April 2001</a>
 * <a href src="https://tools.ietf.org/html/rfc1869">RFC1869 - SMTP Service Extensions, November 1995</a>
