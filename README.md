@@ -3,12 +3,13 @@
 __Keywords:__ _SMTP, mail announcements, events, Python, tkinter_
 
 Objective of this project is to develop a tool to send mail announcements
-using mail templates. The set of templates reflect configured recurring
-events to choose from. Typically such events are reasoning any type of
-announcement in business life. A group of users is to be configured to
-control the Python/tkinter application or a command line version of
-the tooling. Placeholders are used in the template and will be
-substituted by up-to-date values on demand.
+using mail templates. Text data values, configured signatures and file
+attachments are merged into predeclared email text templates.
+Placeholders are used in the templates and will be
+substituted by up-to-date values on demand. These
+get sent out as SMTP based HTML emails. A group of users is to be
+configured to control the Python/tkinter application or alternatively
+a command line version.
 
 * __controlannouncement.py__ will start the Python/tkinter User Experience.
 * __announcement.py__ holds the announcement SMTP based library with a
@@ -21,6 +22,8 @@ substituted by up-to-date values on demand.
 The usage of this announcement tool intends to minimize copy and paste
 errors unfortunately being typical if performed manually. Next the mail
 announcement gets a more clear structure compared to manual editing.
+Recognition value of such email messages is increased since manual
+variation is minimized to a reasonable value.
 
 Tested using standard Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015,
 22:43:06) on Windows environment.
