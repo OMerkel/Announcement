@@ -8,7 +8,7 @@ All rights reserved.
 """
 from announcementconfig import *
 
-import smtplib
+from smtplib import SMTP
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -89,21 +89,19 @@ class Announcement:
     self.message = msg
 
   def sendMail( self, password ):
-    server = smtplib.SMTP( common['mailserver'], 587 )
-    server.set_debuglevel(1)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
-    server.login( self.getShortAddressList()[0], password )
-    server.sendmail( self.message[self.FROM],
-      self.header[self.TO] + self.header[self.CC], self.message.as_string() )
-    server.quit()
-  
+    with SMTP( common['mailserver'], 587 ) as smtp:
+      smtp.set_debuglevel(1)
+      smtp.ehlo()
+      smtp.starttls()
+      smtp.ehlo()
+      smtp.login( self.getShortAddressList()[0], password )
+      smtp.sendmail( self.message[self.FROM],
+        self.header[self.TO] + self.header[self.CC], self.message.as_string() )
+
   def sendTestMail(self):
     to = COMMASPACE.join( self.userData[self.MAIL] )
-    server = smtplib.SMTP( common['mailserver'] )
-    server.sendmail( self.message[self.FROM], to, self.message.as_string() )
-    server.quit()
+    with SMTP( common['mailserver'] ) as smtp:
+      smtp.sendmail( self.message[self.FROM], to, self.message.as_string() )
 
   def getAttachmentKey( self ):
     return mail[self.mailType][self.ATTACHMENTS] if self.ATTACHMENTS in mail[self.mailType].keys() else None
