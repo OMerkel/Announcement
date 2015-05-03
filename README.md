@@ -2,6 +2,8 @@
 
 __Keywords:__ _SMTP, mail announcements, Python, tkinter, file attachments, HTML, command line, argparse, JSON_
 
+## Abstract
+
 Objective of this project is to develop a tool to send mail announcements
 using mail templates. Text data values, configured signatures and file
 attachments are merged into predeclared email text templates.
@@ -25,6 +27,8 @@ announcement gets a more clear structure compared to manual editing.
 Recognition value of such email messages is increased since manual
 variation is minimized to a reasonable value.
 
+## Links
+
 * <a href src="https://www.python.org">Python.org</a>
 * <a href src="https://docs.python.org/3/library/smtplib.html">Python 3 - smtplib (SMTP protocol client)</a>
 * <a href src="https://tools.ietf.org/html/rfc821">RFC821 - SMTP (Simple Mail Transfer Protocol), August 1982</a>
@@ -33,6 +37,8 @@ variation is minimized to a reasonable value.
 * <a href src="https://tools.ietf.org/html/rfc5321">RFC5321 - ESMTP (Extented SMTP), October 2008</a>
 * <a href src="http://www.json.org">JavaScript Object Notation</a>
 * <a href src="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf">ECMA-404 The JSON Data Interchange Standard</a>
+
+## About
 
 Tested using standard Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015,
 22:43:06) on Windows environment.
