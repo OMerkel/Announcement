@@ -168,7 +168,7 @@ if '__main__' == __name__:
       if 'test' == sendOutput:
         announcement.sendTestMail()
       else:
-        password = getpass.getpass('Hello %s. Please enter your password: ' % self.user).strip()
+        password = getpass.getpass('Hello %s. Please enter your password: ' % user).strip()
         announcement.sendMail(password)
     else:
       print("Error: could not include attachments")
