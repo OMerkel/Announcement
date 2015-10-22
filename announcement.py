@@ -18,6 +18,8 @@ from email.utils import COMMASPACE
 from base64 import encodebytes
 import os
 import getpass
+import sys
+from email.base64mime import body_encode as encode_base64
 
 class Announcement:
   FROM = 'From'
@@ -94,7 +96,28 @@ class Announcement:
       smtp.ehlo()
       smtp.starttls()
       smtp.ehlo()
-      smtp.login( self.getShortAddressList()[0], password )
+
+      if not (hex(sys.hexversion) == '0x30500f0'):
+        smtp.login( self.getShortAddressList()[0], password )
+      else:
+        # Application side workaround for http://bugs.python.org/issue25446
+        # smtp.login using AUTH LOGIN mechanism is broken in released Python 3.5.0
+        #
+        # prefer AUTH LOGIN over other mechanism if available
+        if not "LOGIN" in smtp.esmtp_features["auth"].split():
+          # best effort approach: allow any other mechanism
+          smtp.login( self.getShortAddressList()[0], password )
+        else:
+          (code, resp) = smtp.docmd("AUTH", "LOGIN " +
+            encode_base64(self.getShortAddressList()[0].encode('ascii'), eol=''))
+          if not code == 334:
+            raise SMTPException("Authentication not possible with this login.")
+          (code, resp) = smtp.docmd(encode_base64(password.encode('ascii'), eol=''))
+          # 235 : 'Authentication successful'
+          # 503 : 'Error: already authenticated'
+          if not code in (235, 503):
+            raise SMTPException("Authentication unsuccessful.")
+
       smtp.sendmail( self.message[self.FROM],
         self.header[self.TO] + self.header[self.CC], self.message.as_string() )
 
